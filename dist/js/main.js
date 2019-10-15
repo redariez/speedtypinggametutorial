@@ -1,7 +1,18 @@
 window.addEventListener('load', init);
 
 //Globals
-let time = 5;
+
+// Available Levels
+const levels = {
+  easy: 5,
+  medium: 3,
+  hard: 2,
+}
+
+// To change level
+const currentLevel = levels.medium;
+
+let time = currentLevel;
 let score = 0;
 let isPlaying;
 
@@ -14,6 +25,10 @@ const message = document.querySelector('#message');
 const seconds = document.querySelector('#seconds') ;
 
 const words = [
+  'time',
+  'missippi',
+  'grind',
+  'weights',
   'hat',
   'turkey',
   'cheese',
@@ -28,6 +43,8 @@ const words = [
 
 // Intialize Game
 function init() {
+  // Show number of seconds in UI
+  seconds.innerHTML = currentLevel;
   // Load word from away
   showWord(words);
   // Start matching on word Input
@@ -42,7 +59,7 @@ function init() {
 function startMatch() {
   if(matchWords()) {
  isPlaying = true;
- time = 6;
+ time = currentLevel + 1;
  showWord(words);
  wordInput.value = '';
  score++;
@@ -52,7 +69,8 @@ function startMatch() {
   if (score === -1) {
     scoreDisplay.innerHTML = 0;
   } else {
-  scoreDisplay.innerHTML = score;
+    scoreDisplay.innerHTML = score;
+  }
 }
 
 // Match currentWord to wordInput
